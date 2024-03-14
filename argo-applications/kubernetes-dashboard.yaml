@@ -11,6 +11,8 @@ spec:
     - targetRevision: main
       path: gitops/kubernetes-dashboard
       repoURL: https://github.com/dusty-82/ci-test.git
+      helm:
+        releaseName: sealed-secrets
       directory:
         recurse: true
   destination:
