@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argocdnotification 
+  name: gitlab-arm64
+  namespace: argocd
+spec:
+  project: produzione
+  sources:
+    - targetRevision: main
+      path: gitops/gitlab-arm64
+      repoURL: https://github.com/dusty-82/ci-test.git
+      directory:
+        recurse: true
+  destination:
+    namespace: gitlab
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
