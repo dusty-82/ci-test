@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argocdnotification 
+  name: postgresql
+  namespace: argocd
+spec:
+  project: mvp-infra
+  sources:
+    - targetRevision: develop
+      path: gitops/postgresql
+      repoURL: https://gitlab.com/kiratech/intesa-sanpaolo/mlops/monitoring/demvp.git
+      directory:
+        recurse: true
+  destination:
+    namespace: data
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+
