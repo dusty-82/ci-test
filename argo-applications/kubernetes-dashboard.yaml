@@ -10,7 +10,7 @@ spec:
   sources:
     - targetRevision: main
       path: gitops/kubernetes-dashboard
-      repoURL: https://github.com/dusty-82/ci-test.git
+      repoURL: https://github.com/dusty-82/ci-tests.git
       directory:
         recurse: true
   destination:
