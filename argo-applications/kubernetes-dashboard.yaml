@@ -11,6 +11,11 @@ spec:
     targetRevision: 7.1.2
     helm:
       releaseName: kubernetes-dashboard
+      values: |
+        kong:
+          enabled: false
+        nginx:
+          enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubernetes-dashboard
