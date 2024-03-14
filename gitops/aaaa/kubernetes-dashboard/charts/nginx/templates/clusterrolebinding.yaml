@@ -1,0 +1,21 @@
+---
+# Source: kubernetes-dashboard/charts/nginx/templates/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    helm.sh/chart: nginx-4.10.0
+    app.kubernetes.io/name: nginx
+    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/version: "1.10.0"
+    app.kubernetes.io/part-of: nginx
+    app.kubernetes.io/managed-by: Helm
+  name: kubernetes-dashboard-nginx
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubernetes-dashboard-nginx
+subjects:
+  - kind: ServiceAccount
+    name: kubernetes-dashboard-nginx
+    namespace: default
