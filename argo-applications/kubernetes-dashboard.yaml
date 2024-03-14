@@ -13,10 +13,6 @@ spec:
       repoURL: https://github.com/dusty-82/ci-test.git
       directory:
         recurse: true
-    plugin:
-     parameters:
-       - name: values-files
-         array: [values.yaml]
   destination:
     namespace: kubernetes-dashboard
     server: https://kubernetes.default.svc
