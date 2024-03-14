@@ -1,21 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argocdnotification 
   name: kubernetes-dashboard
-  namespace: argocd
+  namespace: kubernetes-dashboard
 spec:
   project: produzione
-  sources:
-    - repoURL: https://kubernetes.github.io/dashboard
-      targetRevision: 7.1.2
-      helm:
-        releaseName: kubernetes-dashboard
+  source:
+    chart: sealed-secrets
+    repoURL: https://bitnami-labs.github.io/sealed-secrets
+    targetRevision: 1.16.1
+    helm:
+      releaseName: sealed-secrets
   destination:
+    server: "https://kubernetes.default.svc"
     namespace: kubernetes-dashboard
-    server: https://kubernetes.default.svc
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
