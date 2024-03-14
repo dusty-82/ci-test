@@ -9,7 +9,7 @@ spec:
   project: produzione
   sources:
     - targetRevision: master
-      path: charts/kubernetes-dashboard
+      path: charts/kubernetes-dashboard/templates
       repoURL: https://github.com/kubernetes/dashboard.git
       directory:
         recurse: true
