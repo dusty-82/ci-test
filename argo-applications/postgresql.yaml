@@ -6,15 +6,15 @@ metadata:
   name: postgresql
   namespace: argocd
 spec:
-  project: mvp-infra
+  project: produzione
   sources:
-    - targetRevision: develop
+    - targetRevision: main
       path: gitops/postgresql
-      repoURL: https://gitlab.com/kiratech/intesa-sanpaolo/mlops/monitoring/demvp.git
+      repoURL: https://github.com/dusty-82/ci-test.git
       directory:
         recurse: true
   destination:
-    namespace: data
+    namespace: postgresql
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
