@@ -8,9 +8,9 @@ metadata:
 spec:
   project: produzione
   sources:
-    - targetRevision: master
-      path: charts/kubernetes-dashboard/templates
-      repoURL: https://github.com/kubernetes/dashboard.git
+    - targetRevision: main
+      path: gitops/kubernetes-dashboard
+      repoURL: https://github.com/dusty-82/ci-test.git
       directory:
         recurse: true
   destination:
