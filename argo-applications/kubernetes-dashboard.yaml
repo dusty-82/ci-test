@@ -6,11 +6,11 @@ metadata:
 spec:
   project: produzione
   source:
-    chart: sealed-secrets
-    repoURL: https://bitnami-labs.github.io/sealed-secrets
-    targetRevision: 1.16.1
+    chart: kubernetes-dashboard
+    repoURL: https://kubernetes.github.io/dashboard
+    targetRevision: 7.1.2
     helm:
-      releaseName: sealed-secrets
+      releaseName: kubernetes-dashboard
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubernetes-dashboard
