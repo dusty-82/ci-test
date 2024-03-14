@@ -47,7 +47,7 @@ spec:
         app.kubernetes.io/component: api
       annotations:
         
-        rollme: "t9S8j"
+        rollme: "EXVHY"
     spec:
       containers:
         - name: kubernetes-dashboard-api

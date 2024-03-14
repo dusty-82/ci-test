@@ -47,7 +47,7 @@ spec:
         app.kubernetes.io/component: auth
       annotations:
         
-        rollme: "PoBBw"
+        rollme: "tEVY8"
     spec:
       containers:
         - name: kubernetes-dashboard-auth
