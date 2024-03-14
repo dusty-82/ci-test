@@ -19,13 +19,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
     helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: vault
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
-  name: vault-kubernetes-dashboard-api
+  name: release-name-kubernetes-dashboard-api
 rules:
     # Allow Dashboard API to get metrics from metrics-scraper.
   - apiGroups: [ "" ]
     resources: [ "services/proxy" ]
-    resourceNames: [ "vault-kubernetes-dashboard-metrics-scraper", "http:vault-kubernetes-dashboard-metrics-scraper" ]
+    resourceNames: [ "release-name-kubernetes-dashboard-metrics-scraper", "http:release-name-kubernetes-dashboard-metrics-scraper" ]
     verbs: [ "get" ]

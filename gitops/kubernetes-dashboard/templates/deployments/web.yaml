@@ -19,27 +19,27 @@ apiVersion: apps/v1
 metadata:
   labels:
     helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: vault
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
     app.kubernetes.io/name: kubernetes-dashboard-web
     app.kubernetes.io/version: 1.2.2
     app.kubernetes.io/component: web
   annotations:
-  name: vault-kubernetes-dashboard-web
+  name: release-name-kubernetes-dashboard-web
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: vault
+      app.kubernetes.io/instance: release-name
       app.kubernetes.io/part-of: kubernetes-dashboard
       app.kubernetes.io/name: kubernetes-dashboard-web
   template:
     metadata:
       labels:
         helm.sh/chart: kubernetes-dashboard-7.1.2
-        app.kubernetes.io/instance: vault
+        app.kubernetes.io/instance: release-name
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: kubernetes-dashboard
         app.kubernetes.io/name: kubernetes-dashboard-web
@@ -53,7 +53,7 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - --namespace=default
-            - --settings-config-map-name=vault-kubernetes-dashboard-web-settings
+            - --settings-config-map-name=release-name-kubernetes-dashboard-web-settings
           ports:
           
             - containerPort: 8000
@@ -90,4 +90,4 @@ spec:
         - emptyDir: {}
           name: tmp-volume
 
-      serviceAccountName: vault-kubernetes-dashboard-web
+      serviceAccountName: release-name-kubernetes-dashboard-web

@@ -19,13 +19,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
     helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: vault
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
-  name: vault-kubernetes-dashboard-web
+  name: release-name-kubernetes-dashboard-web
 rules:
     # Allow Dashboard Web to get and update 'kubernetes-dashboard-settings' config map.
   - apiGroups: [ "" ]
     resources: [ "configmaps" ]
-    resourceNames: [ "vault-kubernetes-dashboard-web-settings" ]
+    resourceNames: [ "release-name-kubernetes-dashboard-web-settings" ]
     verbs: [ "get", "update" ]

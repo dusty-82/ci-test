@@ -19,14 +19,14 @@ kind: RoleBinding
 metadata:
   labels:
     helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: vault
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
-  name: vault-kubernetes-dashboard-api
+  name: release-name-kubernetes-dashboard-api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: vault-kubernetes-dashboard-api
+  name: release-name-kubernetes-dashboard-api
 subjects:
   - kind: ServiceAccount
-    name: vault-kubernetes-dashboard-api
+    name: release-name-kubernetes-dashboard-api

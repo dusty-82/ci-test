@@ -3,12 +3,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vault-kong-manager
+  name: release-name-kong-manager
   namespace: default
   labels:
     app.kubernetes.io/name: kong
     helm.sh/chart: kong-2.38.0
-    app.kubernetes.io/instance: "vault"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/version: "3.6"
 spec:
@@ -25,4 +25,4 @@ spec:
   selector:
     app.kubernetes.io/name: kong
     app.kubernetes.io/component: app
-    app.kubernetes.io/instance: "vault"
+    app.kubernetes.io/instance: "release-name"

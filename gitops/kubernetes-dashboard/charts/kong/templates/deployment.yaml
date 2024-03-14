@@ -3,12 +3,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vault-kong
+  name: release-name-kong
   namespace:  default
   labels:
     app.kubernetes.io/name: kong
     helm.sh/chart: kong-2.38.0
-    app.kubernetes.io/instance: "vault"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/version: "3.6"
     app.kubernetes.io/component: app
@@ -18,25 +18,25 @@ spec:
     matchLabels:
       app.kubernetes.io/name: kong
       app.kubernetes.io/component: app
-      app.kubernetes.io/instance: "vault"
+      app.kubernetes.io/instance: "release-name"
 
   template:
     metadata:
       annotations:
-        kuma.io/service-account-token-volume: vault-kong-token
+        kuma.io/service-account-token-volume: release-name-kong-token
         kuma.io/gateway: "enabled"
         traffic.sidecar.istio.io/includeInboundPorts: ""
       labels:
         app.kubernetes.io/name: kong
         helm.sh/chart: kong-2.38.0
-        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/instance: "release-name"
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/version: "3.6"
         app.kubernetes.io/component: app
-        app: vault-kong
+        app: release-name-kong
         version: "3.6"
     spec:
-      serviceAccountName: vault-kong
+      serviceAccountName: release-name-kong
       automountServiceAccountToken: false
       
       initContainers:
@@ -116,9 +116,9 @@ spec:
           value: "off"
         
         volumeMounts:
-        - name: vault-kong-prefix-dir
+        - name: release-name-kong-prefix-dir
           mountPath: /kong_prefix/
-        - name: vault-kong-tmp
+        - name: release-name-kong-tmp
           mountPath: /tmp
         - name: kong-custom-dbless-config-volume
           mountPath: /kong_dbless/
@@ -209,9 +209,9 @@ spec:
           containerPort: 8100
           protocol: TCP
         volumeMounts:
-          - name: vault-kong-prefix-dir
+          - name: release-name-kong-prefix-dir
             mountPath: /kong_prefix/
-          - name: vault-kong-tmp
+          - name: release-name-kong-tmp
             mountPath: /tmp
           - name: kong-custom-dbless-config-volume
             mountPath: /kong_dbless/
@@ -242,13 +242,13 @@ spec:
         {}
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: vault-kong-prefix-dir
+        - name: release-name-kong-prefix-dir
           emptyDir:
             sizeLimit: 256Mi
-        - name: vault-kong-tmp
+        - name: release-name-kong-tmp
           emptyDir:
             sizeLimit: 1Gi
-        - name: vault-kong-token
+        - name: release-name-kong-token
           projected:
             sources:
             - serviceAccountToken:

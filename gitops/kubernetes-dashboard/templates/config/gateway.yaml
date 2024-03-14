@@ -19,7 +19,7 @@ kind: ConfigMap
 metadata:
   labels:
     helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: vault
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
   name: kong-dbless-config
@@ -28,7 +28,7 @@ data:
     _format_version: "3.0"
     services:
       - name: auth
-        host: vault-kubernetes-dashboard-auth
+        host: release-name-kubernetes-dashboard-auth
         port: 8000
         protocol: http
         routes:
@@ -45,7 +45,7 @@ data:
               - /api/v1/me
             strip_path: false
       - name: api
-        host: vault-kubernetes-dashboard-api
+        host: release-name-kubernetes-dashboard-api
         port: 8000
         protocol: http
         routes:
@@ -58,7 +58,7 @@ data:
               - /metrics
             strip_path: false
       - name: web
-        host: vault-kubernetes-dashboard-web
+        host: release-name-kubernetes-dashboard-web
         port: 8000
         protocol: http
         routes:
