@@ -1,5 +1,5 @@
 ---
-# Source: kubernetes-dashboard/templates/rbac/metrics-scraper/clusterrolebinding.yaml
+# Source: kubernetes-dashboard/templates/service.yaml
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,20 +14,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+apiVersion: v1
+kind: Service
 metadata:
+  name: release-name-kubernetes-dashboard
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.0.0
+    
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-6.0.8
     app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v2.7.0"
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kubernetes-dashboard
-  name: release-name-kubernetes-dashboard-metrics-scraper
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: release-name-kubernetes-dashboard-metrics-scraper
-subjects:
-  - kind: ServiceAccount
-    name: release-name-kubernetes-dashboard-metrics-scraper
-    namespace: default
+    app.kubernetes.io/component: kubernetes-dashboard
+    
+    kubernetes.io/cluster-service: "true"
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 443
+    targetPort: https
+    name: https
+  selector:
+
+    app.kubernetes.io/name: kubernetes-dashboard
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/component: kubernetes-dashboard

@@ -1,5 +1,5 @@
 ---
-# Source: kubernetes-dashboard/templates/services/api.yaml
+# Source: kubernetes-dashboard/templates/clusterrolebinding-metrics.yaml
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,23 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-kind: Service
-apiVersion: v1
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
+  name: "release-name-kubernetes-dashboard-metrics"
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.0.0
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-6.0.8
     app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v2.7.0"
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kubernetes-dashboard
-    app.kubernetes.io/name: kubernetes-dashboard-api
-    app.kubernetes.io/version: 1.2.0
-    app.kubernetes.io/component: api
-  name: release-name-kubernetes-dashboard-api
-spec:
-  ports:
-    - name: api
-      port: 8000
-  selector:
-    app.kubernetes.io/instance: release-name
-    app.kubernetes.io/part-of: kubernetes-dashboard
-    app.kubernetes.io/name: kubernetes-dashboard-api
+  annotations:
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: release-name-kubernetes-dashboard-metrics
+subjects:
+  - kind: ServiceAccount
+    name: release-name-kubernetes-dashboard
+    namespace: default

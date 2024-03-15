@@ -1,5 +1,5 @@
 ---
-# Source: kubernetes-dashboard/templates/networking/ingress.yaml
+# Source: kubernetes-dashboard/templates/configmap.yaml
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,3 +13,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-6.0.8
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v2.7.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+  name: kubernetes-dashboard-settings
+data:

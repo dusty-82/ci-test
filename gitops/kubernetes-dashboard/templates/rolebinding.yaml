@@ -1,5 +1,5 @@
 ---
-# Source: kubernetes-dashboard/templates/rbac/metrics-scraper/serviceaccount.yaml
+# Source: kubernetes-dashboard/templates/rolebinding.yaml
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,12 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
 metadata:
+  name: release-name-kubernetes-dashboard
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.0.0
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-6.0.8
     app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v2.7.0"
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kubernetes-dashboard
-  name: release-name-kubernetes-dashboard-metrics-scraper
+  annotations:
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: release-name-kubernetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: release-name-kubernetes-dashboard
+    namespace: default

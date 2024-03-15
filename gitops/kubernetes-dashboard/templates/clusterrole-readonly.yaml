@@ -1,5 +1,5 @@
 ---
-# Source: kubernetes-dashboard/templates/rbac/api/rolebinding.yaml
+# Source: kubernetes-dashboard/templates/clusterrole-readonly.yaml
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,20 +13,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    helm.sh/chart: kubernetes-dashboard-7.0.0
-    app.kubernetes.io/instance: release-name
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kubernetes-dashboard
-  name: release-name-kubernetes-dashboard-api
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: release-name-kubernetes-dashboard-api
-subjects:
-  - kind: ServiceAccount
-    name: release-name-kubernetes-dashboard-api
