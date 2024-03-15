@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+  namespace: argocd
+spec:
+  project: produzione
+  source:
+    chart: kubernetes-dashboard
+    repoURL: https://kubernetes.github.io/dashboard
+    targetRevision: 7.1.2
+    helm:
+      releaseName: kubernetes-dashboard
+      values: |
+        ingress:
+          enabled: false
+        kong:
+          enabled: false
+        nginx:
+          enabled: true
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kubernetes-dashboard
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
