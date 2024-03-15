@@ -17,7 +17,8 @@ spec:
     namespace: gitlab
     server: https://kubernetes.default.svc
   syncPolicy:
-    - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
+    syncOptions:
+      - CreateNamespace=true
