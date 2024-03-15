@@ -14,42 +14,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: release-name
+    helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+    app.kubernetes.io/instance: kubernetes-dashboard
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
     app.kubernetes.io/name: kubernetes-dashboard-metrics-scraper
-    app.kubernetes.io/version: 1.1.1
+    app.kubernetes.io/version: v1.0.9
     app.kubernetes.io/component: metrics-scraper
-  annotations:
-  name: release-name-kubernetes-dashboard-metrics-scraper
+  # TODO: dashboard-metrics-scraper name is currently hardcoded into the API.
+  # Use same name pattern as for other deployments when this will be configurable via the API.
+  name: kubernetes-dashboard-metrics-scraper
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: release-name
+      app.kubernetes.io/instance: kubernetes-dashboard
       app.kubernetes.io/part-of: kubernetes-dashboard
       app.kubernetes.io/name: kubernetes-dashboard-metrics-scraper
   template:
     metadata:
       labels:
-        helm.sh/chart: kubernetes-dashboard-7.1.2
-        app.kubernetes.io/instance: release-name
+        helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+        app.kubernetes.io/instance: kubernetes-dashboard
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: kubernetes-dashboard
         app.kubernetes.io/name: kubernetes-dashboard-metrics-scraper
-        app.kubernetes.io/version: 1.1.1
+        app.kubernetes.io/version: v1.0.9
         app.kubernetes.io/component: metrics-scraper
-      annotations:
     spec:
       containers:
         - name: kubernetes-dashboard-metrics-scraper
-          image: "docker.io/kubernetesui/dashboard-metrics-scraper:1.1.1"
+          image: "docker.io/kubernetesui/metrics-scraper:v1.0.9"
           imagePullPolicy: IfNotPresent
           ports:
           
@@ -93,5 +94,8 @@ spec:
       
         - emptyDir: {}
           name: tmp-volume
+      nodeSelector:
+      
+        kubernetes.io/os: linux
 
-      serviceAccountName: release-name-kubernetes-dashboard-metrics-scraper
+      serviceAccountName: kubernetes-dashboard

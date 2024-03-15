@@ -1,5 +1,5 @@
 ---
-# Source: kubernetes-dashboard/templates/rbac/metrics-scraper/serviceaccount.yaml
+# Source: kubernetes-dashboard/templates/rbac/clusterrole.yaml
 # Copyright 2017 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,12 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: v1
-kind: ServiceAccount
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: release-name
+    helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+    app.kubernetes.io/instance: kubernetes-dashboard
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
-  name: release-name-kubernetes-dashboard-metrics-scraper
+  name: kubernetes-dashboard
+rules:
+  # Allow Metrics Scraper to get metrics from the Metrics server
+  - apiGroups: [ "metrics.k8s.io" ]
+    resources: [ "pods", "nodes" ]
+    verbs: [ "get", "list", "watch" ]

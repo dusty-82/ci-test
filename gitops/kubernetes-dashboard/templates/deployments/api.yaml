@@ -18,54 +18,43 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: release-name
+    helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+    app.kubernetes.io/instance: kubernetes-dashboard
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
     app.kubernetes.io/name: kubernetes-dashboard-api
-    app.kubernetes.io/version: 1.3.0
+    app.kubernetes.io/version: v1.0.0
     app.kubernetes.io/component: api
-  annotations:
-  name: release-name-kubernetes-dashboard-api
+  name: kubernetes-dashboard-api
 spec:
-  replicas: 3
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: release-name
+      app.kubernetes.io/instance: kubernetes-dashboard
       app.kubernetes.io/part-of: kubernetes-dashboard
       app.kubernetes.io/name: kubernetes-dashboard-api
   template:
     metadata:
       labels:
-        helm.sh/chart: kubernetes-dashboard-7.1.2
-        app.kubernetes.io/instance: release-name
+        helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+        app.kubernetes.io/instance: kubernetes-dashboard
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: kubernetes-dashboard
         app.kubernetes.io/name: kubernetes-dashboard-api
-        app.kubernetes.io/version: 1.3.0
+        app.kubernetes.io/version: v1.0.0
         app.kubernetes.io/component: api
-      annotations:
-        
-        rollme: "EXVHY"
     spec:
       containers:
         - name: kubernetes-dashboard-api
-          image: "docker.io/kubernetesui/dashboard-api:1.3.0"
+          image: "docker.io/kubernetesui/dashboard-api:v1.0.0"
           imagePullPolicy: IfNotPresent
           args:
-            - --namespace=default
-            - --metrics-scraper-service-name=release-name-kubernetes-dashboard-metrics-scraper
-
-          env:
-            - name: CSRF_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: release-name-kubernetes-dashboard-csrf
-                  key: private.key
+            - --enable-insecure-login
+            - --namespace=kubernetes-dashboard
           ports:
           
-            - containerPort: 8000
+            - containerPort: 9000
               name: api
               protocol: TCP
           volumeMounts:
@@ -98,4 +87,5 @@ spec:
       
         - emptyDir: {}
           name: tmp-volume
-      serviceAccountName: release-name-kubernetes-dashboard-api
+
+      serviceAccountName: kubernetes-dashboard

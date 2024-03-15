@@ -18,42 +18,37 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   labels:
-    helm.sh/chart: kubernetes-dashboard-7.1.2
-    app.kubernetes.io/instance: release-name
+    helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+    app.kubernetes.io/instance: kubernetes-dashboard
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kubernetes-dashboard
     app.kubernetes.io/name: kubernetes-dashboard-web
-    app.kubernetes.io/version: 1.2.2
+    app.kubernetes.io/version: v1.0.0
     app.kubernetes.io/component: web
-  annotations:
-  name: release-name-kubernetes-dashboard-web
+  name: kubernetes-dashboard-web
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: release-name
+      app.kubernetes.io/instance: kubernetes-dashboard
       app.kubernetes.io/part-of: kubernetes-dashboard
       app.kubernetes.io/name: kubernetes-dashboard-web
   template:
     metadata:
       labels:
-        helm.sh/chart: kubernetes-dashboard-7.1.2
-        app.kubernetes.io/instance: release-name
+        helm.sh/chart: kubernetes-dashboard-7.0.0-alpha1
+        app.kubernetes.io/instance: kubernetes-dashboard
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: kubernetes-dashboard
         app.kubernetes.io/name: kubernetes-dashboard-web
-        app.kubernetes.io/version: 1.2.2
+        app.kubernetes.io/version: v1.0.0
         app.kubernetes.io/component: web
-      annotations:
     spec:
       containers:
         - name: kubernetes-dashboard-web
-          image: "docker.io/kubernetesui/dashboard-web:1.2.2"
+          image: "docker.io/kubernetesui/dashboard-web:v1.0.0"
           imagePullPolicy: IfNotPresent
-          args:
-            - --namespace=default
-            - --settings-config-map-name=release-name-kubernetes-dashboard-web-settings
           ports:
           
             - containerPort: 8000
@@ -89,5 +84,8 @@ spec:
       
         - emptyDir: {}
           name: tmp-volume
+      nodeSelector:
+      
+        kubernetes.io/os: linux
 
-      serviceAccountName: release-name-kubernetes-dashboard-web
+      serviceAccountName: kubernetes-dashboard

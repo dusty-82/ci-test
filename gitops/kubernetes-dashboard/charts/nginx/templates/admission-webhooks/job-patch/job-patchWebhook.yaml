@@ -3,42 +3,42 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: release-name-nginx-admission-patch
-  namespace: default
+  name: kubernetes-dashboard-nginx-admission-patch
+  namespace: kubernetes-dashboard
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
   labels:
-    helm.sh/chart: nginx-4.10.0
+    helm.sh/chart: nginx-4.7.1
     app.kubernetes.io/name: nginx
-    app.kubernetes.io/instance: release-name
-    app.kubernetes.io/version: "1.10.0"
+    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/version: "1.8.1"
     app.kubernetes.io/part-of: nginx
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
 spec:
   template:
     metadata:
-      name: release-name-nginx-admission-patch
+      name: kubernetes-dashboard-nginx-admission-patch
       labels:
-        helm.sh/chart: nginx-4.10.0
+        helm.sh/chart: nginx-4.7.1
         app.kubernetes.io/name: nginx
-        app.kubernetes.io/instance: release-name
-        app.kubernetes.io/version: "1.10.0"
+        app.kubernetes.io/instance: kubernetes-dashboard
+        app.kubernetes.io/version: "1.8.1"
         app.kubernetes.io/part-of: nginx
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: admission-webhook
     spec:
       containers:
         - name: patch
-          image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.4.0@sha256:44d1d0e9f19c63f58b380c5fddaca7cf22c7cee564adeff365225a5df5ef3334
+          image: "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20230407@sha256:543c40fd093964bc9ab509d3e791f9989963021f1e9e4c9c7b6700b02bfb227b"
           imagePullPolicy: IfNotPresent
           args:
             - patch
-            - --webhook-name=release-name-nginx-admission
+            - --webhook-name=kubernetes-dashboard-nginx-admission
             - --namespace=$(POD_NAMESPACE)
             - --patch-mutating=false
-            - --secret-name=release-name-nginx-admission
+            - --secret-name=kubernetes-dashboard-nginx-admission
             - --patch-failure-policy=Fail
           env:
             - name: POD_NAMESPACE
@@ -47,15 +47,11 @@ spec:
                   fieldPath: metadata.namespace
           securityContext: 
             allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-              - ALL
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-            runAsUser: 65532
-            seccompProfile:
-              type: RuntimeDefault
       restartPolicy: OnFailure
-      serviceAccountName: release-name-nginx-admission
+      serviceAccountName: kubernetes-dashboard-nginx-admission
       nodeSelector: 
         kubernetes.io/os: linux
+      securityContext:
+        fsGroup: 2000
+        runAsNonRoot: true
+        runAsUser: 2000

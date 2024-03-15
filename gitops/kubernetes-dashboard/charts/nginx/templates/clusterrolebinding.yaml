@@ -4,18 +4,18 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: nginx-4.10.0
+    helm.sh/chart: nginx-4.7.1
     app.kubernetes.io/name: nginx
-    app.kubernetes.io/instance: release-name
-    app.kubernetes.io/version: "1.10.0"
+    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/version: "1.8.1"
     app.kubernetes.io/part-of: nginx
     app.kubernetes.io/managed-by: Helm
-  name: release-name-nginx
+  name: kubernetes-dashboard-nginx
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: release-name-nginx
+  name: kubernetes-dashboard-nginx
 subjects:
   - kind: ServiceAccount
-    name: release-name-nginx
-    namespace: default
+    name: kubernetes-dashboard-nginx
+    namespace: "kubernetes-dashboard"

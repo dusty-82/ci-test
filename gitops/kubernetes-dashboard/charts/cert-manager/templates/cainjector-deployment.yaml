@@ -1,0 +1,57 @@
+---
+# Source: kubernetes-dashboard/charts/cert-manager/templates/cainjector-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-dashboard-cert-manager-cainjector
+  namespace: kubernetes-dashboard
+  labels:
+    app: cainjector
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/component: "cainjector"
+    app.kubernetes.io/version: "v1.11.2"
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: cert-manager-v1.11.2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cainjector
+      app.kubernetes.io/instance: kubernetes-dashboard
+      app.kubernetes.io/component: "cainjector"
+  template:
+    metadata:
+      labels:
+        app: cainjector
+        app.kubernetes.io/name: cainjector
+        app.kubernetes.io/instance: kubernetes-dashboard
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/version: "v1.11.2"
+        app.kubernetes.io/managed-by: Helm
+        helm.sh/chart: cert-manager-v1.11.2
+    spec:
+      serviceAccountName: kubernetes-dashboard-cert-manager-cainjector
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: cert-manager-cainjector
+          image: "quay.io/jetstack/cert-manager-cainjector:v1.11.2"
+          imagePullPolicy: IfNotPresent
+          args:
+          - --v=2
+          - --leader-election-namespace=kube-system
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+      nodeSelector:
+        kubernetes.io/os: linux

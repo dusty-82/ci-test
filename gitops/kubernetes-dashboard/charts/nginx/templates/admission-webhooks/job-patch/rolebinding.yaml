@@ -3,24 +3,24 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: release-name-nginx-admission
-  namespace: default
+  name: kubernetes-dashboard-nginx-admission
+  namespace: kubernetes-dashboard
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade,post-install,post-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
   labels:
-    helm.sh/chart: nginx-4.10.0
+    helm.sh/chart: nginx-4.7.1
     app.kubernetes.io/name: nginx
-    app.kubernetes.io/instance: release-name
-    app.kubernetes.io/version: "1.10.0"
+    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/version: "1.8.1"
     app.kubernetes.io/part-of: nginx
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: release-name-nginx-admission
+  name: kubernetes-dashboard-nginx-admission
 subjects:
   - kind: ServiceAccount
-    name: release-name-nginx-admission
-    namespace: default
+    name: kubernetes-dashboard-nginx-admission
+    namespace: "kubernetes-dashboard"
