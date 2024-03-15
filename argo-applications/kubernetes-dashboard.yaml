@@ -21,6 +21,9 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubernetes-dashboard
+  syncPolicy:
     automated:
       selfHeal: true
       prune: true
+    syncOptions:
+      - CreateNamespace=true
