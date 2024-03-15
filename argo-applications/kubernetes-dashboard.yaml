@@ -8,16 +8,16 @@ spec:
   source:
     chart: kubernetes-dashboard
     repoURL: https://kubernetes.github.io/dashboard
-    targetRevision: 7.1.2
-    helm:
-      releaseName: kubernetes-dashboard
-      values: |
-        ingress:
-          enabled: false
-        kong:
-          enabled: false
-        nginx:
-          enabled: true
+    targetRevision: 6.0.8
+    #helm:
+    #  releaseName: kubernetes-dashboard
+    #  values: |
+    #    ingress:
+    #      enabled: false
+    #    kong:
+    #      enabled: false
+    #    nginx:
+    #      enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubernetes-dashboard
