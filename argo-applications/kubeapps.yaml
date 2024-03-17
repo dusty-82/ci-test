@@ -9,15 +9,6 @@ spec:
     chart: kubeapps
     repoURL: registry-1.docker.io/bitnamicharts/kubeapps
     targetRevision: 14.7.2
-    #helm:
-    #  releaseName: kubernetes-dashboard
-    #  values: |
-    #    ingress:
-    #      enabled: false
-    #    kong:
-    #      enabled: false
-    #    nginx:
-    #      enabled: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubeapps
