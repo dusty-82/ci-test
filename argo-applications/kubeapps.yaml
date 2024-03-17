@@ -9,8 +9,6 @@ spec:
     chart: kubeapps
     repoURL: registry-1.docker.io/bitnamicharts/kubeapps
     targetRevision: 14.7.2
-    helm: 
-      passCredentials: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kubeapps
